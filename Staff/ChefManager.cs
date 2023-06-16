@@ -1,20 +1,32 @@
-﻿using MultiTry;
+﻿using MultiTry.Interfaces;
 using System.Collections.Concurrent;
 
-namespace MultiTry
+namespace MultiTry.Staff
 {
-    public class ChefManager
+    public class ChefManager : IStaff
     {
+        private string _name;
         private readonly object _chefLock = new object();
         private ConcurrentQueue<string> _orderQueue = new ConcurrentQueue<string>();
         private Thread _orderProcessingThread;
 
         public List<Chef> Chefs { get; set; } = new List<Chef>();
 
-        public ChefManager()
+        public ChefManager(string name)
         {
             _orderProcessingThread = new Thread(ProcessOrders);
             _orderProcessingThread.Start();
+            _name = name;
+        }
+
+        public Chef GetChefByName(string name)
+        {
+            return Chefs.Find(chef => chef.Name.Equals(name, StringComparison.OrdinalIgnoreCase));
+        }
+
+        public void AddOrder(string order)
+        {
+            _orderQueue.Enqueue(order);
         }
 
         private void ProcessOrders()
@@ -37,25 +49,22 @@ namespace MultiTry
                     else
                     {
                         _orderQueue.Enqueue(order);
-                        Thread.Sleep(1000);  
+                        Thread.Sleep(1000);
                     }
                 }
                 else
                 {
-                    Thread.Sleep(1000); 
+                    Thread.Sleep(1000);
                 }
             }
         }
 
-
-        public void AddOrder(string order)
+        public string Info
         {
-            _orderQueue.Enqueue(order);
-        }
-
-        public Chef GetChefByName(string name)
-        {
-            return Chefs.Find(chef => chef.Name.Equals(name, StringComparison.OrdinalIgnoreCase));
+            get
+            {
+                return _name;
+            }
         }
     }
 

@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Text;
 
 namespace MultiTry
 {
@@ -39,7 +35,7 @@ namespace MultiTry
             else
             {
                 return false;
-                throw new Exception("Not enough ingredient or ingredient not found");
+                throw new Exception("Not enough ingredients or ingredient not found");
             }
         }
 

@@ -1,4 +1,6 @@
-﻿namespace MultiTry
+﻿using MultiTry.Staff;
+
+namespace MultiTry
 {
     internal class Program
     {
@@ -21,18 +23,19 @@
 
 
             // Add chefs
-            Chef chef1 = new Chef("Linda", new Dictionary<string, Recipe>
+/*            Chef chef1 = new Chef("Linda", new Dictionary<string, Recipe>
                                            {
                                                { pizzaRecipe.Name, pizzaRecipe },
                                                { cakeRecipe.Name, cakeRecipe }
                                            }
             );
             chef1.DishPrepared += Print;
-            PizzeriaData.ChefManager.Chefs.Add(chef1);
+            PizzeriaData.ChefManager.Chefs.Add(chef1);*/
 
             Chef chef2 = new Chef("Nick", new Dictionary<string, Recipe>
                                           {
-                                              { pizzaRecipe.Name, pizzaRecipe }
+                                              { pizzaRecipe.Name, pizzaRecipe },
+                                              { cakeRecipe.Name, cakeRecipe },
                                           }
             );
             chef2.DishPrepared += Print;
@@ -46,16 +49,19 @@
             chef3.DishPrepared += Print;
             PizzeriaData.ChefManager.Chefs.Add(chef3);
 
+
+
             Console.WriteLine(PizzeriaData.IngredientStorage.ToString());
             Console.WriteLine(new string('-', 20));
 
+            PizzeriaData.ChefManager.AddOrder("Pizza");
+            PizzeriaData.ChefManager.AddOrder("Cake");
+            PizzeriaData.ChefManager.AddOrder("Pizza");
+            PizzeriaData.ChefManager.AddOrder("Pizza");
+            PizzeriaData.ChefManager.AddOrder("Cake");
+            PizzeriaData.ChefManager.AddOrder("Pizza");
 
-            PizzeriaData.ChefManager.AddOrder("Pizza");
-            PizzeriaData.ChefManager.AddOrder("Cake");
-            PizzeriaData.ChefManager.AddOrder("Pizza");
-            PizzeriaData.ChefManager.AddOrder("Pizza");
-            PizzeriaData.ChefManager.AddOrder("Cake");
-            PizzeriaData.ChefManager.AddOrder("Pizza");
+            Console.WriteLine(PizzeriaData.ChefManager.GetChefByName("Nick").Info);
 
             Console.ReadKey();
             PizzeriaData.ChefManager.AddOrder("Cake");

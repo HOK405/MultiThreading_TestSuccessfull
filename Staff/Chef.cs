@@ -3,13 +3,14 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using MultiTry.Interfaces;
 
-namespace MultiTry
+namespace MultiTry.Staff
 {
-    public class Chef
+    public class Chef : IStaff
     {
         public delegate void DishPreparedHandler(string chefName, string dishName);
-        public event DishPreparedHandler DishPrepared;
+        public event DishPreparedHandler? DishPrepared;
 
         public string Name { get; set; }
         public bool IsBusy { get; set; }
@@ -38,6 +39,16 @@ namespace MultiTry
             PizzeriaData.IngredientStorage.PutDish(dishName);
             DishPrepared?.Invoke(Name, dishName);
             IsBusy = false;  // зайнятість кухаря негативна
+        }
+
+
+        public string Info
+        {
+            get
+            {
+                string dishes = string.Join(", ", Recipes.Keys);
+                return $"{Name}'s dishes: {dishes}";
+            }
         }
     }
 }
